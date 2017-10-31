@@ -1,7 +1,7 @@
 module.exports = {
-    FB_PAGE_TOKEN: '',
-    FB_VERIFY_TOKEN: '',
-    API_AI_CLIENT_ACCESS_TOKEN: '',
-    FB_APP_SECRET: '',
-    SERVER_URL: "",
+    FB_PAGE_TOKEN: 'EAAFBZCcRyEFIBALa8FwL8TXdzzfyMJsoVWJWvQ7ofGLzPZCS48tCLEopfCrNxIgmOZA3ii0wSlO8vObwiffVGpujdwMk7ZC3QLZBOZCujdt7E7qHskYOLHJsi7aQUPPd1eAeFlrG6kmBsfb58l82mVbpCHgQ4v7KVcGx53afZB7twZDZD',
+    FB_VERIFY_TOKEN: 'abcd12345',
+    API_AI_CLIENT_ACCESS_TOKEN: '977423e700a249d78785a7e3e8aeef0d',
+    FB_APP_SECRET: 'b2de89f051717625736bdedbe8261b38',
+    SERVER_URL: "https://fierce-citadel-52014.herokuapp.com/",
 };
