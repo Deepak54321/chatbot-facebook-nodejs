@@ -185,7 +185,7 @@ function handleEcho(messageId, appId, metadata) {
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 	switch (action) {
 			case "enquiry":
-			let replies=[
+			let replies = [
                 {
                     "content_type":"text",
                     "title":"Accountant",
