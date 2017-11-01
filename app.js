@@ -184,7 +184,7 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 	switch (action) {
-			case "job-enquiry":
+			case "enquiry":
 			let replies=[
                 {
                     "content_type":"text",
@@ -202,7 +202,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     "payload":"Not Interested"
                 }
             ];
-			sendQuickReply(sender,responseText,replies);
+			sendQuickReply(sender, responseText, replies);
 			break;
 		default:
 			//unhandled action, just send back the text
