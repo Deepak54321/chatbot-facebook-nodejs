@@ -3,5 +3,5 @@ module.exports = {
     FB_VERIFY_TOKEN: 'abcd12345',
     API_AI_CLIENT_ACCESS_TOKEN: '977423e700a249d78785a7e3e8aeef0d',
     FB_APP_SECRET: '39391c09b5c741fcb070a88b5bb14423',
-    SERVER_URL: "http://dialog-flow-chat-bot-1.azurewebsites.net",
+    SERVER_URL: "https://fierce-citadel-52014.herokuapp.com",
 };
