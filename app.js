@@ -228,6 +228,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                   "payload":"Book Keeper"
                 }
             ];
+			break;
           sendQuickReply(sender, responseText, replies);
 		case "dealer-price":
             var request = require('request');
@@ -236,9 +237,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 			},function (error,response,body) {
                     if (!error && response.statusCode == 200) {
                         let result = JSON.parse(body);
-                        let responseCode=result.responseCode;
+                        let responseCode=result.responseData;
+			    let productPrice=responseCode.product_price;
+			    let price=productPrice[0].price;
                         {
-                          sendTextMessage(sender, responseCode);
+                          sendTextMessage(sender, price);
                         }
                     }
                     else {
