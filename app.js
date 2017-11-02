@@ -184,21 +184,22 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 	switch (action) {
-			case "enquiry":
-			let replies = [
+		case "job-enquiry":
+			let replies=[
                 {
                     "content_type":"text",
-                    "title":"Search",
-                    "payload":"<POSTBACK_PAYLOAD>",
-                    "image_url":"http://example.com/img/red.png"
+                    "title":"Accountant",
+                    "payload":"Accountant"
                 },
                 {
-                    "content_type":"location"
+                    "content_type": "text",
+                    "title": "Sales",
+                    "payload": "Sales"
                 },
                 {
                     "content_type":"text",
-                    "title":"Something Else",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "title":"Not Interested",
+                    "payload":"Not Interested"
                 }
             ];
 			sendQuickReply(sender, responseText, replies);
@@ -327,7 +328,7 @@ function handleApiAiResponse(sender, response) {
 	} else if (responseText == '' && !isDefined(action)) {
 		//api ai could not evaluate input.
 		console.log('Unknown query' + response.result.resolvedQuery);
-		sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
+		sendTextMessage(sender, "I'm not sure what you want to ask. Can you be more specific?");
 	} else if (isDefined(action)) {
 		handleApiAiAction(sender, action, responseText, contexts, parameters);
 	} else if (isDefined(responseData) && isDefined(responseData.facebook)) {
