@@ -208,14 +208,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     ];
                     sendQuickReply(sender, responseText, replies);
 				}
-                if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
+               else if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
 				{
                   let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
 					  '.'+'<br> years of experience:'+years_of_experience+
                       '.'+'<br> Phone Number:'+phone_number+ '.';
                       sendTextMessage(sender, emailContent);
 					//responseText=emailContent;
-                    
+
 				}
 
 			}
