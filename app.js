@@ -185,7 +185,7 @@ function handleMessageAttachments(messageAttachments, senderID){
                     "title":"Next",
                     "payload":text1
                 }];
-            sendQuickReply(senderID,text1,replies);
+            sendQuickReply(senderID,'',replies);
             //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
         }
 
