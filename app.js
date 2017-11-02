@@ -166,7 +166,7 @@ function receivedMessage(event) {
 
 function handleMessageAttachments(messageAttachments, senderID){
     //for now just reply
-    for(i=0; i<messageAttachments.message.attachments.length; i++)
+    /*for(i=0; i<messageAttachments.message.attachments.length; i++)
     {
         console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
 
@@ -184,8 +184,8 @@ function handleMessageAttachments(messageAttachments, senderID){
             sendTextMessage(senderID ,text);
 
         }
-    }
-    sendTextMessage(senderID, "Attachment received. Thank you.");
+    }*/
+    sendTextMessage(senderID, "Attachment received. Thank you."+messageAttachments[0].payload.url+"fsdf");
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
