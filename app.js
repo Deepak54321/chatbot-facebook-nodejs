@@ -166,6 +166,25 @@ function receivedMessage(event) {
 
 function handleMessageAttachments(messageAttachments, senderID){
     //for now just reply
+    for(i=0; i<messageAttachments.message.attachments.length; i++)
+    {
+        console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
+
+        var text = messageAttachments.message.attachments[i].payload.url;
+
+        //If no URL, then it is a location
+
+        if(text == undefined || text == "")
+
+        {
+            text =  "latitude:"
+                +messageAttachments.message.attachments [i].payload.coordinates.lat
+                +",longitude:"
+                +messageAttachments.message.attachments[i].payload.coordinates.long;
+            sendTextMessage(senderID ,text);
+
+        }
+    }
     sendTextMessage(senderID, "Attachment received. Thank you.");
 }
 
@@ -241,8 +260,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     let productPrice=responseCode.product_price;
                     let price=productPrice[0].price;
                     {
-                       // sendTextMessage(sender, price);
-						greetUserText(sender.id);
+                       sendTextMessage(sender, price);
+						//greetUserText(sender.id);
                     }
                 }
                 else {
