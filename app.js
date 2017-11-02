@@ -174,18 +174,20 @@ function handleMessageAttachments(messageAttachments, senderID){
 
         //If no URL, then it is a location
 
-       /* if(text == undefined || text == "")
-
+        if(text == undefined || text == "")
         {
-            text =  "latitude:"
+            /*text =  "latitude:"
                 +messageAttachments.message.attachments [i].payload.coordinates.lat
                 +",longitude:"
                 +messageAttachments.message.attachments[i].payload.coordinates.long;
-            sendTextMessage(senderID ,text);
-
+            sendTextMessage(senderID ,text);*/
+            sendTextMessage(senderID, "Attachment received. Thank you."+HI+"fsdf");
         }
-    }*/
-    sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
+        else {
+            sendTextMessage(senderID, "Attachment received. Thank you." + Hello + "fsdf");
+        }
+    //}}
+    
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
