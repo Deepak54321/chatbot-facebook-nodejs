@@ -202,7 +202,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                   let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
 					  '.'+'<br> years of experience:'+years_of_experience+
                       '.'+'<br> Phone Number:'+phone_number+ '.';
-                      sendTextMessage(sender, emailContent);
+                      //sendTextMessage(sender, emailContent);
 					responseText=emailContent;
 				}
 				else
