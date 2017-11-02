@@ -173,19 +173,16 @@ function handleMessageAttachments(messageAttachments, senderID){
         var text = messageAttachments.message.attachments[i].payload.url;*/
         var text=messageAttachments[0].payload.url;
         //If no URL, then it is a location
-/*
         if(text == undefined || text == "")
-
         {
-            text =  "latitude:"
+            /*text =  "latitude:"
                 +messageAttachments.message.attachments [i].payload.coordinates.lat
                 +",longitude:"
                 +messageAttachments.message.attachments[i].payload.coordinates.long;
-            sendTextMessage(senderID ,text);
-
+            sendTextMessage(senderID ,text);*/
+            sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
         }
-    }*/
-    sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
+    
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
