@@ -704,11 +704,11 @@ function greetUserText(userId) {
 				console.log("FB user: %s %s, %s",
 					user.first_name, user.last_name, user.gender);
 
-				sendTextMessage(userId, "Welcome " + user.first_name + '!' +'I can answer frequently asked questions for you' +
-				'and i perform job interviews');
+				sendTextMessage(userId, "Welcome " + user.first_name + '!' +'Welcome to yamaha India');
 			} else {
 				console.log("Cannot get data for fb user with id",
 					userId);
+				sendTextMessage(userId,'User Details not accessible');
 			}
 		} else {
 			console.error(response.error);
@@ -768,7 +768,7 @@ function receivedPostback(event) {
 	var payload = event.postback.payload;
 
 	switch (payload) {
-        case "get-Started":
+        case "get-started":
           greetUserText(senderID);
             break;
 		default:
