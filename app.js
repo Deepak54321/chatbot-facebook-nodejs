@@ -170,20 +170,22 @@ function handleMessageAttachments(messageAttachments, senderID){
     {
         console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
 
-        var text = messageAttachments.message.attachments[i].payload.url;*/
+        var text = messageAttachments.message.attachments[i].payload.url;
 
         //If no URL, then it is a location
 
-        if(messageAttachments[0].payload.url == undefined || messageAttachments[0].payload.url == "")
+        if(text == undefined || text == "")
+
         {
-         /* let  text =  "latitude:"
-                +messageAttachments[0].payload.coordinates.lat
+            text =  "latitude:"
+                +messageAttachments.message.attachments [i].payload.coordinates.lat
                 +",longitude:"
-                +messageAttachments[0].payload.coordinates.long;*/
-                sendTextMessage(senderID ,"Location Received");
+                +messageAttachments.message.attachments[i].payload.coordinates.long;
+            sendTextMessage(senderID ,text);
+
         }
-    }
-    sendTextMessage(senderID, "Attachment received. Thank you.");
+    }*/
+    sendTextMessage(senderID, "Attachment received. Thank you."+messageAttachments[0].payload.url+"fsdf");
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
