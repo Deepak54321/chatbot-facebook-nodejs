@@ -229,6 +229,21 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             ];
           sendQuickReply(sender, responseText, replies);
+		case "dealer-price":
+            var request = require('request');
+			request({
+				url:'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/statewiseprice/getprice?product_profile_id=salutorxspcol&state_id=240'
+			},function (error,response,body) {
+                    if (!error && response.statusCode == 200) {
+                        let result = JSON.parse(body);
+                        {
+                          sendTextMessage(sender, "WebserviceCalled");
+                        }
+                    }
+                    else {
+                        console(log.error());
+                    }
+                });
 			break;
 		default:
 			//unhandled action, just send back the text
