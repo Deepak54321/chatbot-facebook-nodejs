@@ -176,11 +176,11 @@ function handleMessageAttachments(messageAttachments, senderID){
 
         if(messageAttachments[0].payload.url == undefined || messageAttachments[0].payload.url == "")
         {
-          let  text =  "latitude:"
+         /* let  text =  "latitude:"
                 +messageAttachments[0].payload.coordinates.lat
                 +",longitude:"
-                +messageAttachments[0].payload.coordinates.long;
-                sendTextMessage(senderID ,text);
+                +messageAttachments[0].payload.coordinates.long;*/
+                sendTextMessage(senderID ,"Location Received");
         }
     }
     sendTextMessage(senderID, "Attachment received. Thank you.");
