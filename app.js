@@ -236,7 +236,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 			},function (error,response,body) {
                     if (!error && response.statusCode == 200) {
                         let result = JSON.parse(body);
-                        let responseCode=JSON.parse(responseCode);
+                        let responseCode=result.responseCode;
                         {
                           sendTextMessage(sender, responseCode);
                         }
