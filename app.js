@@ -197,7 +197,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['years-of-experience']!='')? contexts[0].parameters['years-of-experience']:'';
                 let Job_Vacancy=(isDefined(contexts[0].parameters['Job-Vacancy'])&&
                     contexts[0].parameters['Job-Vacancy']!='')? contexts[0].parameters['Job-Vacancy']:'';
-               
+
                if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
 				{
                   let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
@@ -704,7 +704,8 @@ function greetUserText(userId) {
 				console.log("FB user: %s %s, %s",
 					user.first_name, user.last_name, user.gender);
 
-				sendTextMessage(userId, "Welcome " + user.first_name + '!');
+				sendTextMessage(userId, "Welcome " + user.first_name + '!' +'I can answer frequently asked questions for you' +
+				'and i perform job interviews');
 			} else {
 				console.log("Cannot get data for fb user with id",
 					userId);
@@ -767,11 +768,13 @@ function receivedPostback(event) {
 	var payload = event.postback.payload;
 
 	switch (payload) {
+        case "get-Started":
+          greetUserText(senderID);
+            break;
 		default:
 			//unindentified payload
 			sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
 			break;
-
 	}
 
 	console.log("Received postback for user %d and page %d with payload '%s' " +
