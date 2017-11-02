@@ -768,16 +768,8 @@ function receivedPostback(event) {
 	var payload = event.postback.payload;
 
 	switch (payload) {
-        case "get-started":
-        	if(senderID!='')
-			{
-                sendTextMessage(senderID,"welcome to yamaha India");
-                //greetUserText(senderID);
-			}
-			else {
-                sendTextMessage(event.sender, "Failed");
-                
-            }
+        case 'GET_STARTED':
+			greetUserText(senderID);
             break;
 		default:
 			//unindentified payload
