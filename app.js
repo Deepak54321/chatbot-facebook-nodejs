@@ -184,6 +184,29 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 	switch (action) {
+		case "detailed-application":
+			if(isDefined(contexts[0]) && contexts[0].name=='job_application' && contexts[0].parameters)
+			{
+               let phone_number=(isDefined(contexts[0].parameters['phone-number'])&&
+			   contexts[0].parameters['phone-number']!='')? contexts[0].parameters['phone-number']:'';
+                let user_name=(isDefined(contexts[0].parameters['user-name'])&&
+                    contexts[0].parameters['user-name']!='')? contexts[0].parameters['user-name']:'';
+                let previous_job=(isDefined(contexts[0].parameters['previous-job'])&&
+                    contexts[0].parameters['previous-job']!='')? contexts[0].parameters['previous-job']:'';
+                let years_of_experience=(isDefined(contexts[0].parameters['years-of-experience'])&&
+                    contexts[0].parameters['years-of-experience']!='')? contexts[0].parameters['years-of-experience']:'';
+                let Job_Vacancy=(isDefined(contexts[0].parameters['Job-Vacancy'])&&
+                    contexts[0].parameters['Job-Vacancy']!='')? contexts[0].parameters['Job-Vacancy']:'';
+                if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
+				{
+                  let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
+					  '.'+'<br> years of experience:'+years_of_experience+
+                      '.'+'<br> Phone Number:'+phone_number+ '.';
+                      sendTextMessage(sender, emailContent);
+				}
+			}
+			sendTextMessage(sender, responseText);
+			break;
 		case "job-enquiry":
           let replies =  [
                 {
@@ -873,7 +896,9 @@ function verifyRequestSignature(req, res, buf) {
 		}
 	}
 }
-
+function  sendEmail(subject, content) {
+	
+}
 function isDefined(obj) {
 	if (typeof obj == 'undefined') {
 		return false;
