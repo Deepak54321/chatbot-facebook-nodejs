@@ -183,9 +183,9 @@ function handleMessageAttachments(messageAttachments, senderID){
                 {
                     "content_type":"text",
                     "title":"Next",
-                    "payload":"+text1+"
+                    "payload":"text1"
                 }];
-            sendQuickReply(senderID,"",replies);
+            sendQuickReply(senderID,text1,replies);
             //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
         }
 
@@ -251,7 +251,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             ];
             sendQuickReply(sender, responseText, replies);
-            
+
             break;
         case "dealer-price":
             var request = require('request');
