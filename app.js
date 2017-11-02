@@ -199,6 +199,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['Job-Vacancy']!='')? contexts[0].parameters['Job-Vacancy']:'';
                 if(user_name!='')
 				{
+                    contexts[0].parameters['user-name']='';
                     let replies =  [
                         {
                             "content_type":"text",
