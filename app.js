@@ -197,6 +197,17 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['years-of-experience']!='')? contexts[0].parameters['years-of-experience']:'';
                 let Job_Vacancy=(isDefined(contexts[0].parameters['Job-Vacancy'])&&
                     contexts[0].parameters['Job-Vacancy']!='')? contexts[0].parameters['Job-Vacancy']:'';
+                if(user_name!='')
+				{
+                    let replies =  [
+                        {
+                            "content_type":"text",
+                            "title":"Please enter valid user name",
+                            "payload":"OK"
+                        }
+                    ];
+                    sendQuickReply(sender, responseText, replies);
+				}
                 if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
 				{
                   let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
@@ -204,14 +215,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                       '.'+'<br> Phone Number:'+phone_number+ '.';
                       sendTextMessage(sender, emailContent);
 					//responseText=emailContent;
-                    let replies =  [
-                        {
-                            "content_type":"text",
-                            "title":"Please enter valid user details",
-                            "payload":"OK"
-                        }
-                    ];
-                    sendQuickReply(sender, responseText, replies);
+                    
 				}
 
 			}
