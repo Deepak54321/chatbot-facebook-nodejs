@@ -203,6 +203,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 					  '.'+'<br> years of experience:'+years_of_experience+
                       '.'+'<br> Phone Number:'+phone_number+ '.';
                       sendTextMessage(sender, emailContent);
+					responseText=emailContent;
+				}
+				else
+				{
+                    sendTextMessage(sender, "Empty details");
 				}
 			}
 			sendTextMessage(sender, responseText);
