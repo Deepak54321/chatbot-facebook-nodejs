@@ -176,7 +176,7 @@ function handleMessageAttachments(messageAttachments, senderID){
 
         if(messageAttachments[0].payload.url == undefined || messageAttachments[0].payload.url == "")
         {
-            text =  "latitude:"
+          var  text =  "latitude:"
                 +messageAttachments[0].payload.coordinates.lat
                 +",longitude:"
                 +messageAttachments[0].payload.coordinates.long;
