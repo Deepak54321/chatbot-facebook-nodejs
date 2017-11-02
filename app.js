@@ -171,15 +171,21 @@ function handleMessageAttachments(messageAttachments, senderID){
         console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
 
         var text = messageAttachments.message.attachments[i].payload.url;*/
-        var text=messageAttachments[0].payload.url;
+        var text1=messageAttachments[0].payload.url;
         //If no URL, then it is a location
-        if(text == undefined || text == "")
+        if(text1 == undefined || text1 == "")
         {
-            text =  "latitude:"
+            text1 =  "latitude:"
                 +messageAttachments[0].payload.coordinates.lat
                 +",longitude:"
                 +messageAttachments[0].payload.coordinates.long;
-            sendTextMessage(senderID ,text);
+            let replies =  [
+                {
+                    "content_type":"text",
+                    "title":"Next",
+                    "payload":"+text1+"
+                }];
+            sendQuickReply(senderID,"",replies);
             //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
         }
 
@@ -245,6 +251,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             ];
             sendQuickReply(sender, responseText, replies);
+            
             break;
         case "dealer-price":
             var request = require('request');
