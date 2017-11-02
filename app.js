@@ -202,13 +202,18 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                   let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
 					  '.'+'<br> years of experience:'+years_of_experience+
                       '.'+'<br> Phone Number:'+phone_number+ '.';
-                      //sendTextMessage(sender, emailContent);
-					responseText=emailContent;
+                      sendTextMessage(sender, emailContent);
+					//responseText=emailContent;
+                    let replies =  [
+                        {
+                            "content_type":"text",
+                            "title":"Please enter valid user details",
+                            "payload":"OK"
+                        }
+                    ];
+                    sendQuickReply(sender, responseText, replies);
 				}
-				else
-				{
-                    sendTextMessage(sender, "Empty details");
-				}
+
 			}
 			sendTextMessage(sender, responseText);
 			break;
