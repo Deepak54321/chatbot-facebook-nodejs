@@ -769,8 +769,15 @@ function receivedPostback(event) {
 
 	switch (payload) {
         case "get-started":
-        	sendTextMessage(senderID,"welcome to yamaha India");
-          //greetUserText(senderID);
+        	if(senderID!='')
+			{
+                sendTextMessage(senderID,"welcome to yamaha India");
+                //greetUserText(senderID);
+			}
+			else {
+                sendTextMessage(event.sender, "Failed");
+                
+            }
             break;
 		default:
 			//unindentified payload
