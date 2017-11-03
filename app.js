@@ -253,11 +253,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-detail":
-            if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
-            {
+            ///if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
+            //{
                 sendTextMessage(sender,"UserDeatailCalled");
-            }
-            sendTextMessage(sender, responseText);
+            //}
+            //sendTextMessage(sender, responseText);
             break;
         case "dealer-price":
             var request = require('request');
