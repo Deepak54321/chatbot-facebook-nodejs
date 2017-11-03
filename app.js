@@ -253,19 +253,28 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-detail":
-            //if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
-            //{
+            if(isDefined(contexts[0]) && contexts[0].name=='product' && contexts[0].parameters)
+            {
                 let user_name=(isDefined(contexts[0].parameters['username'])&&
                     contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
-                let uname="Deepak"+user_name+'';
-                    /*let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
-                        '.'+'<br> years of experience:'+years_of_experience+
-                        '.'+'<br> Phone Number:'+phone_number+ '.';*/
+                let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
+                    contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
+                let email=(isDefined(contexts[0].parameters['email'])&&
+                    contexts[0].parameters['email']!='')? contexts[0].parameters['email']:'';
+                 
+                if(phone_number!='' && user_name!='' && email!='')
+                {
+                    let emailContent='UserName' +user_name+ 'Phone Number' +phone_number+'<br> email:'+email+
+                        '.';
+                    sendTextMessage(sender, emailContent);
+                    //responseText=emailContent;
+
+                }
                     sendTextMessage(sender, uname);
                     //responseText=emailContent;
 
 
-            //}
+            }
             break;
         case "dealer-price":
             var request = require('request');
