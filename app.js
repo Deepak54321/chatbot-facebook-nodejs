@@ -280,8 +280,10 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
             var phoneno = /^\d{10}$/;
+            var Ph_Num=phone_number;
+            
             //sendTextMessage(sender,phone_number);
-           if((phone_number.value.match(phoneno)))
+           if((Ph_Num.value.match(phoneno)))
             {
                 let replies =  [
                     {
