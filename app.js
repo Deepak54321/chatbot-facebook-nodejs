@@ -171,23 +171,23 @@ function handleMessageAttachments(messageAttachments, senderID){
         console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
 
         var text = messageAttachments.message.attachments[i].payload.url;*/
-        var text1=messageAttachments[0].payload.url;
-        //If no URL, then it is a location
-        if(text1 == undefined || text1 == "")
-        {
-            text1 =  "latitude:"
-                +messageAttachments[0].payload.coordinates.lat
-                +",longitude:"
-                +messageAttachments[0].payload.coordinates.long;
-            let replies =  [
-                {
-                    "content_type":"text",
-                    "title":"Next",
-                    "payload":text1
-                }];
-            sendQuickReply(senderID,text1,replies);
-            //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
-        }
+    var text1=messageAttachments[0].payload.url;
+    //If no URL, then it is a location
+    if(text1 == undefined || text1 == "")
+    {
+        text1 =  "latitude:"
+            +messageAttachments[0].payload.coordinates.lat
+            +",longitude:"
+            +messageAttachments[0].payload.coordinates.long;
+        let replies =  [
+            {
+                "content_type":"text",
+                "title":"Next",
+                "payload":text1
+            }];
+        sendQuickReply(senderID,text1,replies);
+        //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
+    }
 
 }
 
@@ -251,7 +251,32 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             ];
             sendQuickReply(sender, responseText, replies);
+            break;
+        case "user-detail":
+            if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
+            {
+                let phone_number=(isDefined(contexts[0].parameters['lattitude'])&&
+                    contexts[0].parameters['lattitude']!='')? contexts[0].parameters['lattitude']:'';
+                let user_name=(isDefined(contexts[0].parameters['user-name'])&&
+                    contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
+                let previous_job=(isDefined(contexts[0].parameters['longitude'])&&
+                    contexts[0].parameters['longitude']!='')? contexts[0].parameters['longitude']:'';
+                let years_of_experience=(isDefined(contexts[0].parameters['email'])&&
+                    contexts[0].parameters['email']!='')? contexts[0].parameters['email']:'';
+                let Job_Vacancy=(isDefined(contexts[0].parameters['productphonenumber'])&&
+                    contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
 
+                if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
+                {
+                    let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
+                        '.'+'<br> years of experience:'+years_of_experience+
+                        '.'+'<br> Phone Number:'+phone_number+ '.';
+                    sendTextMessage(sender, emailContent);
+                    //responseText=emailContent;
+
+                }
+            }
+            sendTextMessage(sender, responseText);
             break;
         case "dealer-price":
             var request = require('request');
@@ -264,8 +289,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     let productPrice=responseCode.product_price;
                     let price=productPrice[0].price;
                     {
-                       sendTextMessage(sender, price);
-						//greetUserText(sender.id);
+                        sendTextMessage(sender, price);
+                        //greetUserText(sender.id);
                     }
                 }
                 else {
