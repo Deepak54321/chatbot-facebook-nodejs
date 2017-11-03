@@ -261,10 +261,10 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
                 let email=(isDefined(contexts[0].parameters['email'])&&
                     contexts[0].parameters['email']!='')? contexts[0].parameters['email']:'';
-                 
+
                 if(phone_number!='' && user_name!='' && email!='')
                 {
-                    let emailContent='UserName' +user_name+ 'Phone Number' +phone_number+'<br> email:'+email+
+                    let emailContent='UserName' +user_name+ 'Phone Number' +phone_number+'email:'+email+
                         '.';
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
