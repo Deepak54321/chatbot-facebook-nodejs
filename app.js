@@ -281,7 +281,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
             var phoneno = /^\d{10}$/;
             sendTextMessage(sender,phone_number);
-           /* if((phone_number.match(phoneno)))
+           if((phone_number.value.match(phoneno)))
             {
                 let replies =  [
                     {
@@ -302,7 +302,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     }
                 ];
                 sendQuickReply(sender, responseText, replies);
-            }*/
+            }
             break;
         case "dealer-price":
             var request = require('request');
