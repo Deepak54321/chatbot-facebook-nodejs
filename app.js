@@ -255,8 +255,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "user-detail":
             //if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
             //{
-                let user_name=(isDefined(contexts[0].parameters['username'])&&
-                    contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
+                let user_name=(isDefined(contexts['product-enquiry-username'].parameters['username'])&&
+                    contexts['product-enquiry-username'].parameters['username']!='')? contexts['product-enquiry-username'].parameters['username']:'';
 
 
                 let uname="Deepak"+user_name+'';
