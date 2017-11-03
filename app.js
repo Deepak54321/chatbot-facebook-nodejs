@@ -264,7 +264,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 
                 if(phone_number!='' && user_name!='' && email!='')
                 {
-                    let emailContent='UserName' +user_name+ 'Phone Number' +phone_number+'email:'+email+
+                    let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+
                         '.';
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
