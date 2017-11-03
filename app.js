@@ -276,6 +276,33 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 
             }
             break;
+        case "phone-val":
+            let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
+                contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
+            var phoneno = /^\d{10}$/;
+            if((phone_number.match(phoneno)))
+            {
+                let replies =  [
+                    {
+                        "content_type":"text",
+                        "title":"click to share your Email",
+                        "payload":"Please share your Email"
+                    }
+                ];
+                sendQuickReply(sender, responseText, replies);
+            }
+            else 
+            {
+                let replies =  [
+                    {
+                        "content_type":"text",
+                        "title":"Invalid Phone Number click to reenter",
+                        "payload":"Please share your phone number"
+                    }
+                ];
+                sendQuickReply(sender, responseText, replies);
+            }
+            break;
         case "dealer-price":
             var request = require('request');
             request({
