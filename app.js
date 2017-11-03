@@ -259,15 +259,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
 
 
-                if( user_name!='')
-                {
+                let uname=user_name+"Deepak";
                     /*let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
                         '.'+'<br> years of experience:'+years_of_experience+
                         '.'+'<br> Phone Number:'+phone_number+ '.';*/
-                    sendTextMessage(sender, user_name);
+                    sendTextMessage(sender, uname);
                     //responseText=emailContent;
 
-                }
+
             }
             break;
         case "dealer-price":
