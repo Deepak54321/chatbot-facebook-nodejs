@@ -253,7 +253,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-detail":
-            if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-username' && contexts[0].parameters)
+            if(isDefined(contexts[0]) && contexts[0].name=='product-enquiry-phonenumber' && contexts[0].parameters)
             {
                 let phone_number=(isDefined(contexts[0].parameters['lattitude'])&&
                     contexts[0].parameters['lattitude']!='')? contexts[0].parameters['lattitude']:'';
