@@ -278,7 +278,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "phone-val":
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
-                let reply =  [
+                /*let reply =  [
                     {
                         "content_type":"text",
                         "title":"Accountant",
@@ -289,8 +289,9 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "title":"Sales",
                         "payload":"Sales"
                     }
-                ];
-                sendQuickReply(sender, responseText, reply);
+                ];*/
+                //sendQuickReply(sender, responseText, reply);
+			sendTextMessage(sender,"Please share your email");
             break;
         case "dealer-price":
             var request = require('request');
