@@ -279,15 +279,15 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
 			    let s_message="Invalid phone number Please click next to reenter ";
-                /*let reply =  [
+                let reply =  [
                     {
                         "content_type":"text",
-                        "title":"Next",
-                        "payload":"PhoneNumber"
+                        "title":"",
+                        "payload":""
                     }
-                ];*/
+                ];
                 responseText=s_message;
-			 sendQuickReply(sender, responseText,'');
+			 sendQuickReply(sender, responseText,reply);
 			//sendTextMessage(sender,s_message);
             break;
         case "dealer-price":
