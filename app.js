@@ -248,74 +248,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     "content_type":"text",
                     "title":"Bookkeeper",
                     "payload":"Book Keeper"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Accountant",
-                    "payload":"Accountant"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Sales",
-                    "payload":"Sales"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Bookkeeper",
-                    "payload":"Book Keeper"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Accountant",
-                    "payload":"Accountant"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Sales",
-                    "payload":"Sales"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Bookkeeper",
-                    "payload":"Book Keeper"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Accountant",
-                    "payload":"Accountant"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Sales",
-                    "payload":"Sales"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Bookkeeper",
-                    "payload":"Book Keeper"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Accountant",
-                    "payload":"Accountant"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Sales",
-                    "payload":"Sales"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Bookkeeper",
-                    "payload":"Book Keeper"
                 }
             ];
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-detail":
-            if(isDefined(contexts[0]) && contexts[0].name=='product' && contexts[0].parameters)
+            if(isDefined(contexts[0]) && contexts[0].name=='userpersonaldetails-followup' && contexts[0].parameters)
             {
-                let user_name=(isDefined(contexts[0].parameters['username'])&&
+               /* let user_name=(isDefined(contexts[0].parameters['username'])&&
                     contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                     contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
@@ -328,9 +268,9 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         '.';
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
-
-                }
-                sendTextMessage(sender, uname);
+                }*/
+                 responseText="user detail called";
+                sendTextMessage(sender,responseText);
                 //responseText=emailContent;
 
             }
