@@ -290,7 +290,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "payload":"Sales"
                     }
                 ];*/
-                let s_message="Please share your email";
+                let s_message="Please share your phone no";
                 //sendQuickReply(sender, responseText, reply);
 			sendTextMessage(sender,s_message);
             break;
