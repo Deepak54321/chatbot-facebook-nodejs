@@ -283,6 +283,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "content_type":"text",
                         "title":"Accountant",
                         "payload":"Accountant"
+                    },
+                    {
+                        "content_type":"text",
+                        "title":"Sales",
+                        "payload":"Sales"
                     }
                 ];
                 sendQuickReply(sender, responseText, reply);
