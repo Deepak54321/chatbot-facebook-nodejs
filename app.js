@@ -278,17 +278,12 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "phone-val":
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
-			    let s_message="share your phoneno";
+			    let s_message="Invalid phone number Please click next to reenter ";
                 let reply =  [
                     {
                         "content_type":"text",
-                        "title":"Accountant",
-                        "payload":"Accountant"
-                    },
-                    {
-                        "content_type":"text",
-                        "title":"Sales",
-                        "payload":"Sales"
+                        "title":"Next",
+                        "payload":"PhoneNumber"
                     }
                 ];
                 responseText=s_message;
