@@ -291,6 +291,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "payload":"Sales"
                     }
                 ];
+                responseText=s_message;
 			 sendQuickReply(sender, responseText, reply);
 			//sendTextMessage(sender,s_message);
             break;
