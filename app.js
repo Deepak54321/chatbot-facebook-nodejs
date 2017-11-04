@@ -278,12 +278,13 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "phone-val":
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
+                contexts[0].parameters['productphonenumber']='';
 			    let s_message="Invalid phone number Please click next to reenter ";
                 let reply =  [
                     {
                         "content_type":"text",
-                        "title":"",
-                        "payload":""
+                        "title":"next",
+                        "payload":"Phone Number"
                     }
                 ];
                 responseText=s_message;
