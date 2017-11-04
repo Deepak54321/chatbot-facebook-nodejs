@@ -291,8 +291,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     }
                 ];*/
                 //sendQuickReply(sender, responseText, reply);
-			responseText="Please share your email";
-			sendTextMessage(sender,responseText);
+			sendTextMessage(sender,phone_number);
             break;
         case "dealer-price":
             var request = require('request');
