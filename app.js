@@ -291,8 +291,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "payload":"Sales"
                     }
                 ];
-                //sendQuickReply(sender, responseText, reply);
-			sendTextMessage(sender,s_message);
+			 sendQuickReply(sender, responseText, reply);
+			//sendTextMessage(sender,s_message);
             break;
         case "dealer-price":
             var request = require('request');
