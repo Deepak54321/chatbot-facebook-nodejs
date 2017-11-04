@@ -275,7 +275,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 
             }
             break;
-        case "phone-val":
+       /* case "phone-val":
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
                 contexts[0].parameters['productphonenumber']='';
@@ -289,7 +289,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 ];
                 responseText=s_message;
 			 sendQuickReply(sender, responseText,reply);
-			//sendTextMessage(sender,s_message);
+			//sendTextMessage(sender,s_message);*/
             break;
         case "dealer-price":
             var request = require('request');
