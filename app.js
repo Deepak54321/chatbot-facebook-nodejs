@@ -278,14 +278,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "phone-val":
                 let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
                 contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
-                let replies =  [
+                let reply =  [
                     {
                         "content_type":"text",
-                        "title":"click to ",
-                        "payload":"your Email"
+                        "title":"Accountant",
+                        "payload":"Accountant"
                     }
                 ];
-                sendQuickReply(sender, responseText, replies);
+                sendQuickReply(sender, responseText, reply);
             break;
         case "dealer-price":
             var request = require('request');
