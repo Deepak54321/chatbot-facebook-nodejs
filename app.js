@@ -281,8 +281,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 let replies =  [
                     {
                         "content_type":"text",
-                        "title":"click to share your Email",
-                        "payload":"Please share your Email"
+                        "title":"click to ",
+                        "payload":"your Email"
                     }
                 ];
                 sendQuickReply(sender, responseText, replies);
