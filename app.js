@@ -282,7 +282,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
                 contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
             contexts[0].parameters['cphonenumber']='';
-            let s_message="Invalid phone number Please click next to reenter ";
+            let s_message="Invalid Input Please click next to reenter ";
             let reply =  [
                 {
                     "content_type":"text",
