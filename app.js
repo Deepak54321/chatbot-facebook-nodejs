@@ -253,7 +253,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-detail":
-            if(isDefined(contexts[0]) && contexts[0].name=='userpersonaldetails-followup' && contexts[0].parameters)
+            if(isDefined(contexts[0]) && contexts[0].name=='welcomeyamaha' && contexts[0].parameters)
             {
                 let user_name=(isDefined(contexts[0].parameters['cuser-name'])&&
                     contexts[0].parameters['cuser-name']!='')? contexts[0].parameters['cuser-name']:'';
