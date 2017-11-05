@@ -292,33 +292,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             ];
             var ph_num=phone_number;
             responseText=s_message;
-            var reg = /^[0-9]{10}$/;
+            var reg = /^\d{10}$/;
             var checking = reg.test(ph_num);
-            if(checking) {
-                sendTextMessage(sender,"Please enter your Pin code");
-            }
-            else
-            {
-                contexts[0].parameters['cphonenumber'] = undefined;
-                sendQuickReply(sender, responseText, reply);
-            }
-            break;
-        case "pin-val":
-            let pin_code=(isDefined(contexts[0].parameters['cpincode'])&&
-                contexts[0].parameters['cpincode']!='')? contexts[0].parameters['cpincode']:'';
-
-            let s_message="Invalid Input Please reenter your pin code ";
-            let reply =  [
-                {
-                    "content_type":"text",
-                    "title":"Invalid Input",
-                    "payload":"Your Pincode"
-                }
-            ];
-            var pcode=pin_code;
-            responseText=s_message;
-            var reg = /^[0-9]{6}$/;
-            var checking = reg.test(pcode);
             if(checking) {
                 sendTextMessage(sender,"Please enter your Pin code");
             }
