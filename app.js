@@ -261,15 +261,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
                 let email=(isDefined(contexts[0].parameters['cemail'])&&
                     contexts[0].parameters['cemail']!='')? contexts[0].parameters['cemail']:'';
-                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['clattitude'])&&
-                    contexts[0].parameters['clattitude']!='')? contexts[0].parameters['clattitude']:'';
-                let Product_Customer_Interest=(isDefined(contexts[0].parameters['clattitude'])&&
-                    contexts[0].parameters['clongitude']!='')? contexts[0].parameters['clongitude']:'';
+                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['cpincode'])&&
+                    contexts[0].parameters['cpincode']!='')? contexts[0].parameters['cpincode']:'';
+                
 
                 if(phone_number!='' && user_name!='' && email!='')
                 {
                     let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+'customer' +
-                        'Customer Interest'+Product_Customer_Interest+'Feedback'
+                        'Customer Interest'+Product_Enquiry_Feedback+'
                         '.';
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
