@@ -255,16 +255,16 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "user-detail":
             if(isDefined(contexts[0]) && contexts[0].name=='userpersonaldetails-followup' && contexts[0].parameters)
             {
-                let user_name=(isDefined(contexts[0].parameters['user-name'])&&
-                    contexts[0].parameters['user-name']!='')? contexts[0].parameters['user-name']:'';
-                let phone_number=(isDefined(contexts[0].parameters['phone-number'])&&
-                    contexts[0].parameters['phone-number']!='')? contexts[0].parameters['phone-number']:'';
-                let email=(isDefined(contexts[0].parameters['email'])&&
-                    contexts[0].parameters['email']!='')? contexts[0].parameters['email']:'';
-                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['ProductEnquiryFeedback'])&&
-                    contexts[0].parameters['ProductEnquiryFeedback']!='')? contexts[0].parameters['ProductEnquiryFeedback']:'';
-                let Product_Customer_Interest=(isDefined(contexts[0].parameters['ProductCustomerInterest'])&&
-                    contexts[0].parameters['ProductCustomerInterest']!='')? contexts[0].parameters['ProductCustomerInterest']:'';
+                let user_name=(isDefined(contexts[0].parameters['cuser-name'])&&
+                    contexts[0].parameters['cuser-name']!='')? contexts[0].parameters['cuser-name']:'';
+                let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
+                    contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
+                let email=(isDefined(contexts[0].parameters['cemail'])&&
+                    contexts[0].parameters['cemail']!='')? contexts[0].parameters['cemail']:'';
+                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['clattitude'])&&
+                    contexts[0].parameters['clattitude']!='')? contexts[0].parameters['clattitude']:'';
+                let Product_Customer_Interest=(isDefined(contexts[0].parameters['clattitude'])&&
+                    contexts[0].parameters['clongitude']!='')? contexts[0].parameters['clongitude']:'';
 
                 if(phone_number!='' && user_name!='' && email!='')
                 {
