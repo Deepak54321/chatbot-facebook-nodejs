@@ -255,42 +255,32 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "user-detail":
             if(isDefined(contexts[0]) && contexts[0].name=='userpersonaldetails-followup' && contexts[0].parameters)
             {
-               /* let user_name=(isDefined(contexts[0].parameters['username'])&&
-                    contexts[0].parameters['username']!='')? contexts[0].parameters['username']:'';
-                let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
-                    contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
+                let user_name=(isDefined(contexts[0].parameters['user-name'])&&
+                    contexts[0].parameters['user-name']!='')? contexts[0].parameters['user-name']:'';
+                let phone_number=(isDefined(contexts[0].parameters['phone-number'])&&
+                    contexts[0].parameters['phone-number']!='')? contexts[0].parameters['phone-number']:'';
                 let email=(isDefined(contexts[0].parameters['email'])&&
                     contexts[0].parameters['email']!='')? contexts[0].parameters['email']:'';
+                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['ProductEnquiryFeedback'])&&
+                    contexts[0].parameters['ProductEnquiryFeedback']!='')? contexts[0].parameters['ProductEnquiryFeedback']:'';
+                let Product_Customer_Interest=(isDefined(contexts[0].parameters['ProductCustomerInterest'])&&
+                    contexts[0].parameters['ProductCustomerInterest']!='')? contexts[0].parameters['ProductCustomerInterest']:'';
 
                 if(phone_number!='' && user_name!='' && email!='')
                 {
-                    let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+
+                    let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+'customer' +
+                        'Customer Interest'+Product_Customer_Interest+'Feedback'
                         '.';
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
-                }*/
-                 responseText="user detail called";
-                sendTextMessage(sender,responseText);
-                //responseText=emailContent;
+
+                }
+                    sendTextMessage(sender, uname);
+                    //responseText=emailContent;
+
 
             }
             break;
-       /* case "phone-val":
-                let phone_number=(isDefined(contexts[0].parameters['productphonenumber'])&&
-                contexts[0].parameters['productphonenumber']!='')? contexts[0].parameters['productphonenumber']:'';
-                contexts[0].parameters['productphonenumber']='';
-			    let s_message="Invalid phone number Please click next to reenter ";
-                let reply =  [
-                    {
-                        "content_type":"text",
-                        "title":"next",
-                        "payload":"Phone Number"
-                    }
-                ];
-                responseText=s_message;
-			 sendQuickReply(sender, responseText,reply);
-			//sendTextMessage(sender,s_message);
-            break;*/
         case "dealer-price":
             var request = require('request');
             request({
