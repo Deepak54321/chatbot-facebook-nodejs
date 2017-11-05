@@ -291,7 +291,13 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             ];
             responseText=s_message;
-            sendQuickReply(sender, responseText,reply);
+            if(phone_number.length<10) {
+                sendQuickReply(sender, responseText, reply);
+            }
+            else 
+            {
+                sendTextMessage(sender,"Please enter your Pin code");
+            }
             break;
         case "dealer-price":
             var request = require('request');
