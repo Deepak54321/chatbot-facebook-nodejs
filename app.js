@@ -276,8 +276,22 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     sendTextMessage(sender, uname);
                     //responseText=emailContent;
 
-
             }
+            break;
+        case "phone-val":
+            let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
+                contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
+            contexts[0].parameters['cphonenumber']='';
+            let s_message="Invalid phone number Please click next to reenter ";
+            let reply =  [
+                {
+                    "content_type":"text",
+                    "title":"Invalid Input",
+                    "payload":"Your PhoneNumber"
+                }
+            ];
+            responseText=s_message;
+            sendQuickReply(sender, responseText,reply);
             break;
         case "dealer-price":
             var request = require('request');
