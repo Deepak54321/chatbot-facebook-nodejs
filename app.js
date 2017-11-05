@@ -269,7 +269,6 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 {
                     let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+'customer' +
                         'Customer Interest'+Product_Enquiry_Feedback+ '.';
-                    contexts[0].reset();
                     sendTextMessage(sender, emailContent);
                     //responseText=emailContent;
 
@@ -282,7 +281,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "phone-val":
             let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
                 contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
-            contexts[0].parameters['cphonenumber'].reset();
+            
             let s_message="Invalid Input Please click next to reenter ";
             let reply =  [
                 {
@@ -293,10 +292,12 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             ];
             responseText=s_message;
             if(phone_number.length<10) {
+                contexts[0].parameters['cphonenumber']=undefined;
                 sendQuickReply(sender, responseText, reply);
             }
             else if(phone_number.length>10)
             {
+                contexts[0].parameters['cphonenumber']=undefined;
                 sendQuickReply(sender, responseText, reply);
             }
             else
