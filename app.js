@@ -282,11 +282,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
                 contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
 
-            let s_message="Invalid Input Please reenter your phone number ";
+            let s_message="Invalid Input Please click next to reenter your phone number ";
             let reply =  [
                 {
                     "content_type":"text",
-                    "title":"Invalid Input",
+                    "title":"next",
                     "payload":"Your PhoneNumber"
                 }
             ];
@@ -294,13 +294,18 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             responseText=s_message;
             var reg = /^\d{10}$/;
             var checking = reg.test(ph_num);
-            if(checking) {
-                sendTextMessage(sender,"Please enter your Pin code");
+            if(ph_num!="Your PhoneNumber") {
+                if (checking) {
+                    sendTextMessage(sender, "Please enter your Pin code");
+                }
+                else {
+                    contexts[0].parameters['cphonenumber'] = undefined;
+                    sendQuickReply(sender, responseText, reply);
+                }
             }
             else
             {
-                contexts[0].parameters['cphonenumber'] = undefined;
-                sendQuickReply(sender, responseText, reply);
+                sendTextMessage(sender, "Please enter your Phone number");
             }
             break;
         case "dealer-price":
