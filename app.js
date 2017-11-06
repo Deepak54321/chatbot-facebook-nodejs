@@ -273,8 +273,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     //responseText=emailContent;
 
                 }
-                    sendTextMessage(sender, uname);
-                    //responseText=emailContent;
+                sendTextMessage(sender, uname);
+                //responseText=emailContent;
 
             }
             break;
@@ -283,13 +283,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
 
             let s_message="Invalid Input Please reenter your phone number ";
-            let reply =  [
-                {
-                    "content_type":"text",
-                    "title":"Invalid Input",
-                    "payload":"Your PhoneNumber"
-                }
-            ];
+            
             var ph_num=phone_number;
             responseText=s_message;
             var reg = /^\d{10}$/;
@@ -300,7 +294,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             else
             {
                 contexts[0].parameters['cphonenumber'] = undefined;
-                sendQuickReply(sender, responseText, reply);
+               sendTextMessage(sender,s_message);
             }
             break;
         case "dealer-price":
