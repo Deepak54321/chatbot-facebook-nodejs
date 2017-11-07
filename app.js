@@ -867,7 +867,8 @@ function receivedPostback(event) {
 
     switch (payload) {
         case 'GET_STARTED':
-            greetUserText(senderID);
+            sendTextMessage(recipientID,"Get Started called successfully")
+            //greetUserText(senderID);
             break;
         default:
             //unindentified payload
