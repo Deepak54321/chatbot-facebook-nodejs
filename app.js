@@ -184,6 +184,31 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
     switch (action) {
+        case "user-feedback":
+            let replies =  [
+                {
+                    "content_type":"text",
+                    "title":"Excellent",
+                    "payload":"Excellent"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Good",
+                    "payload":"Good"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Average",
+                    "payload":"Average"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Bad",
+                    "payload":"Bad"
+                }
+            ];
+            sendQuickReply(sender, responseText, replies);
+            break;
         default:
             //unhandled action, just send back the text
             sendTextMessage(sender, responseText);
@@ -721,6 +746,9 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
+        case "GET_STARTED":
+            greetUserText(senderID);
+            break;
         default:
             //unindentified payload
             sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
