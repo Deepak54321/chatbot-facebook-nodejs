@@ -189,22 +189,27 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 {
                     "content_type":"text",
                     "title":"Excellent",
+                    "image_url":"https://ih1.redbubble.net/image.237042550.9854/sticker,375x360-bg,ffffff.u4.png",
                     "payload":"Excellent"
                 },
                 {
                     "content_type":"text",
                     "title":"Good",
+                    "image_url":"http://forum.quattroruote.it/styles/default/xenforo/smilies.emoji/people/stuck_out_tongue.emoji.svg",
                     "payload":"Good"
                 },
                 {
                     "content_type":"text",
                     "title":"Average",
+                    "image_url":"http://assets.onedio.co/asset-637eaccc5b778c2cb4c9682878ba311a/images/emoji/svg/1f60a.svg",
                     "payload":"Average"
                 },
                 {
                     "content_type":"text",
                     "title":"Bad",
+                    "image_url":"https://upload.wikimedia.org/wikipedia/commons/5/5f/Emojione_1F632.svg",
                     "payload":"Bad"
+
                 }
             ];
             sendQuickReply(sender, responseText, replies);
