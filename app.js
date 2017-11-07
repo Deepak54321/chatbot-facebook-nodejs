@@ -195,19 +195,19 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 {
                     "content_type":"text",
                     "title":"Good",
-                    "image_url":"http://forum.quattroruote.it/styles/default/xenforo/smilies.emoji/people/stuck_out_tongue.emoji.svg",
+                    "image_url":"https://previews.123rf.com/images/fotoall/fotoall0907/fotoall090700085/5270227-Smiley-face-isolated-on-white-background-Stock-Photo-happy.jpg",
                     "payload":"Good"
                 },
                 {
                     "content_type":"text",
                     "title":"Average",
-                    "image_url":"http://assets.onedio.co/asset-637eaccc5b778c2cb4c9682878ba311a/images/emoji/svg/1f60a.svg",
+                    "image_url":"https://previews.123rf.com/images/vectorshots/vectorshots1211/vectorshots121100267/16104680-Smile-Icon-Vector-Stock-Vector-smiley-face-smile.jpg",
                     "payload":"Average"
                 },
                 {
                     "content_type":"text",
                     "title":"Bad",
-                    "image_url":"https://upload.wikimedia.org/wikipedia/commons/5/5f/Emojione_1F632.svg",
+                    "image_url":"https://st3.depositphotos.com/1954927/15979/v/1600/depositphotos_159794904-stock-illustration-smileyemoticon-yellow-face-with-emotions.jpg",
                     "payload":"Bad"
 
                 }
