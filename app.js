@@ -166,29 +166,7 @@ function receivedMessage(event) {
 
 function handleMessageAttachments(messageAttachments, senderID){
     //for now just reply
-    /*for(i=0; i<messageAttachments.message.attachments.length; i++)
-    {
-        console.log("Attachment inside: " + JSON.stringify(messageAttachments.message.attachments[i]));
-
-        var text = messageAttachments.message.attachments[i].payload.url;*/
-    var text1=messageAttachments[0].payload.url;
-    //If no URL, then it is a location
-    if(text1 == undefined || text1 == "")
-    {
-        text1 =  "latitude:"
-            +messageAttachments[0].payload.coordinates.lat
-            +",longitude:"
-            +messageAttachments[0].payload.coordinates.long;
-        let replies =  [
-            {
-                "content_type":"text",
-                "title":"Next",
-                "payload":text1
-            }];
-        sendQuickReply(senderID,text1,replies);
-        //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
-    }
-
+    sendTextMessage(senderID, "Attachment received. Thank you.");
 }
 
 function handleQuickReply(senderID, quickReply, messageId) {
@@ -206,128 +184,6 @@ function handleEcho(messageId, appId, metadata) {
 
 function handleApiAiAction(sender, action, responseText, contexts, parameters) {
     switch (action) {
-        case "detailed-application":
-            if(isDefined(contexts[0]) && contexts[0].name=='job_application' && contexts[0].parameters)
-            {
-                let phone_number=(isDefined(contexts[0].parameters['phone-number'])&&
-                    contexts[0].parameters['phone-number']!='')? contexts[0].parameters['phone-number']:'';
-                let user_name=(isDefined(contexts[0].parameters['user-name'])&&
-                    contexts[0].parameters['user-name']!='')? contexts[0].parameters['user-name']:'';
-                let previous_job=(isDefined(contexts[0].parameters['previous-job'])&&
-                    contexts[0].parameters['previous-job']!='')? contexts[0].parameters['previous-job']:'';
-                let years_of_experience=(isDefined(contexts[0].parameters['years-of-experience'])&&
-                    contexts[0].parameters['years-of-experience']!='')? contexts[0].parameters['years-of-experience']:'';
-                let Job_Vacancy=(isDefined(contexts[0].parameters['Job-Vacancy'])&&
-                    contexts[0].parameters['Job-Vacancy']!='')? contexts[0].parameters['Job-Vacancy']:'';
-
-                if(phone_number!='' && user_name!='' && previous_job!='' && years_of_experience!='' && Job_Vacancy!='')
-                {
-                    let emailContent='A new job enquiry from' +user_name+ 'for the job' +Job_Vacancy+'<br> previous job position:'+previous_job+
-                        '.'+'<br> years of experience:'+years_of_experience+
-                        '.'+'<br> Phone Number:'+phone_number+ '.';
-                    sendTextMessage(sender, emailContent);
-                    //responseText=emailContent;
-
-                }
-            }
-            sendTextMessage(sender, responseText);
-            break;
-        case "job-enquiry":
-            let replies =  [
-                {
-                    "content_type":"text",
-                    "title":"Accountant",
-                    "payload":"Accountant"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Sales",
-                    "payload":"Sales"
-                },
-                {
-                    "content_type":"text",
-                    "title":"Bookkeeper",
-                    "payload":"Book Keeper"
-                }
-            ];
-            sendQuickReply(sender, responseText, replies);
-            break;
-        case "user-detail":
-            if(isDefined(contexts[0]) && contexts[0].name=='welcomeyamaha' && contexts[0].parameters)
-            {
-                let user_name=(isDefined(contexts[0].parameters['cuser-name'])&&
-                    contexts[0].parameters['cuser-name']!='')? contexts[0].parameters['cuser-name']:'';
-                let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
-                    contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
-                let email=(isDefined(contexts[0].parameters['cemail'])&&
-                    contexts[0].parameters['cemail']!='')? contexts[0].parameters['cemail']:'';
-                let Product_Enquiry_Feedback=(isDefined(contexts[0].parameters['cpincode'])&&
-                    contexts[0].parameters['cpincode']!='')? contexts[0].parameters['cpincode']:'';
-
-
-                if(phone_number!='' && user_name!='' && email!='')
-                {
-                    let emailContent='UserName:=' +user_name+ 'Phone Number:=' +phone_number+'email:='+email+'customer' +
-                        'Customer Interest'+Product_Enquiry_Feedback+ '.';
-                    sendTextMessage(sender, emailContent);
-                    //responseText=emailContent;
-
-                }
-                sendTextMessage(sender, uname);
-                //responseText=emailContent;
-
-            }
-            break;
-        case "phone-val":
-            let phone_number=(isDefined(contexts[0].parameters['cphonenumber'])&&
-                contexts[0].parameters['cphonenumber']!='')? contexts[0].parameters['cphonenumber']:'';
-
-            let s_message="Invalid Input Please click next to reenter your phone number ";
-            let reply =  [
-                {
-                    "content_type":"text",
-                    "title":"next",
-                    "payload":"Your PhoneNumber"
-                }
-            ];
-            var ph_num=phone_number;
-            responseText=s_message;
-            var reg = /^\d{10}$/;
-            var checking = reg.test(ph_num);
-            if(ph_num!="Your PhoneNumber") {
-                if (checking) {
-                    sendTextMessage(sender, "Please enter your Pin code");
-                }
-                else {
-                    contexts[0].parameters['cphonenumber'] = undefined;
-                    sendQuickReply(sender, responseText, reply);
-                }
-            }
-            else
-            {
-                sendTextMessage(sender, "Please enter your Phone number");
-            }
-            break;
-        case "dealer-price":
-            var request = require('request');
-            request({
-                url:'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/statewiseprice/getprice?product_profile_id=salutorxspcol&state_id=240'
-            },function (error,response,body) {
-                if (!error && response.statusCode == 200) {
-                    let result = JSON.parse(body);
-                    let responseCode=result.responseData;
-                    let productPrice=responseCode.product_price;
-                    let price=productPrice[0].price;
-                    {
-                        sendTextMessage(sender, price);
-                        //greetUserText(sender.id);
-                    }
-                }
-                else {
-                    console(log.error());
-                }
-            });
-            break;
         default:
             //unhandled action, just send back the text
             sendTextMessage(sender, responseText);
@@ -452,7 +308,7 @@ function handleApiAiResponse(sender, response) {
     } else if (responseText == '' && !isDefined(action)) {
         //api ai could not evaluate input.
         console.log('Unknown query' + response.result.resolvedQuery);
-        sendTextMessage(sender, "I'm not sure what you want to ask. Can you be more specific?");
+        sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
     } else if (isDefined(action)) {
         handleApiAiAction(sender, action, responseText, contexts, parameters);
     } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
@@ -802,11 +658,10 @@ function greetUserText(userId) {
                 console.log("FB user: %s %s, %s",
                     user.first_name, user.last_name, user.gender);
 
-                sendTextMessage(userId, "Welcome " + user.first_name + '!' +'Welcome to yamaha India');
+                sendTextMessage(userId, "Welcome " + user.first_name + '!');
             } else {
                 console.log("Cannot get data for fb user with id",
                     userId);
-                sendTextMessage(userId,'User Details not accessible');
             }
         } else {
             console.error(response.error);
@@ -866,14 +721,11 @@ function receivedPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
-        case 'GET_STARTED':
-            sendTextMessage(recipientID,"Get Started called successfully")
-            //greetUserText(senderID);
-            break;
         default:
             //unindentified payload
             sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
             break;
+
     }
 
     console.log("Received postback for user %d and page %d with payload '%s' " +
@@ -1001,9 +853,7 @@ function verifyRequestSignature(req, res, buf) {
         }
     }
 }
-function  sendEmail(subject, content) {
 
-}
 function isDefined(obj) {
     if (typeof obj == 'undefined') {
         return false;
