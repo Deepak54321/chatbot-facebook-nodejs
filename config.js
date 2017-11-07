@@ -5,5 +5,4 @@ module.exports = {
     FB_APP_ID: '1527480177370024',
     FB_APP_SECRET: '39391c09b5c741fcb070a88b5bb14423',
     SERVER_URL: "https://fierce-citadel-52014.herokuapp.com",
-    ADMIN_ID:"100004137640587"
 };
