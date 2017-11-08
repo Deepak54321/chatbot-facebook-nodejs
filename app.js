@@ -215,6 +215,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             break;
         case "user-data":
               greetUserText(sender.id);
+              break;
         default:
             //unhandled action, just send back the text
             sendTextMessage(sender, responseText);
