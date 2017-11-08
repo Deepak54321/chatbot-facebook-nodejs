@@ -189,31 +189,32 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 {
                     "content_type":"text",
                     "title":"Excellent",
-                    "image_url":"https://ih1.redbubble.net/image.237042550.9854/sticker,375x360-bg,ffffff.u4.png",
+                    "image_url":"http://example.com/img/red.png",
                     "payload":"Excellent"
                 },
                 {
                     "content_type":"text",
                     "title":"Good",
-                    "image_url":"https://previews.123rf.com/images/fotoall/fotoall0907/fotoall090700085/5270227-Smiley-face-isolated-on-white-background-Stock-Photo-happy.jpg",
+                    "image_url":"http://example.com/img/red.png",
                     "payload":"Good"
                 },
                 {
                     "content_type":"text",
                     "title":"Average",
-                    "image_url":"https://previews.123rf.com/images/vectorshots/vectorshots1211/vectorshots121100267/16104680-Smile-Icon-Vector-Stock-Vector-smiley-face-smile.jpg",
+                    "image_url":"http://example.com/img/red.png",
                     "payload":"Average"
                 },
                 {
                     "content_type":"text",
                     "title":"Bad",
-                    "image_url":"https://st3.depositphotos.com/1954927/15979/v/1600/depositphotos_159794904-stock-illustration-smileyemoticon-yellow-face-with-emotions.jpg",
+                    "image_url":"http://example.com/img/red.png",
                     "payload":"Bad"
-
                 }
             ];
             sendQuickReply(sender, responseText, replies);
             break;
+        case "user-data":
+              greetUserText(sender.id);
         default:
             //unhandled action, just send back the text
             sendTextMessage(sender, responseText);
