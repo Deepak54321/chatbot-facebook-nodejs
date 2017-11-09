@@ -165,6 +165,19 @@ function receivedMessage(event) {
 
 
 function handleMessageAttachments(messageAttachments, senderID){
+	text1 =  "latitude:"
+            +messageAttachments[0].payload.coordinates.lat
+            +",longitude:"
+            +messageAttachments[0].payload.coordinates.long;
+			    let replies =  [
+            {
+                "content_type":"text",
+                "title":"GetPrice",
+                "payload":text1
+            }];
+	    contexts[0].parameters['lattitude'] =messageAttachments[0].payload.coordinates.lat;
+        contexts[0].parameters['longitude'] =messageAttachments[0].payload.coordinates.long;
+        sendQuickReply(senderID,text1,replies);
     //for now just reply
     sendTextMessage(senderID, "Attachment received. Thank you.");
 }
@@ -214,7 +227,12 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             sendQuickReply(sender, responseText, replies);
             break;
         case "user-data":
-              greetUserText(sender.id);
+		        let lattitude=(isDefined(contexts[0].parameters['lattitude']) &&
+                    contexts[0].parameters['longitude'] != '') ? contexts[0].parameters['longitude'] : '';
+                let longitude=(isDefined(contexts[0].parameters['longitude']) &&
+                        contexts[0].parameters['longitude'] != '') ? contexts[0].parameters['longitude'] : '';
+						sendTextMessage(sender, latitude);
+              //greetUserText(sender.id);
               break;
         default:
             //unhandled action, just send back the text
