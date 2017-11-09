@@ -177,9 +177,10 @@ function handleMessageAttachments(messageAttachments, senderID){
                 "title":"GetPrice",
                 "payload":text1
             }];
-        contexts[0].parameters['lattitude'] =messageAttachments[0].payload.coordinates.lat;
-        contexts[0].parameters['longitude'] =messageAttachments[0].payload.coordinates.long;
-        sendQuickReply(senderID,text1,replies);
+        //contexts[0].parameters['lattitude'] =messageAttachments[0].payload.coordinates.lat;
+       // contexts[0].parameters['longitude'] =messageAttachments[0].payload.coordinates.long;
+	  //let  responseText=text1;
+        sendTextMessage(senderID,text1);
         //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
     }
     //for now just reply
