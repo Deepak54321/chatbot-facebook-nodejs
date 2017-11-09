@@ -165,19 +165,23 @@ function receivedMessage(event) {
 
 
 function handleMessageAttachments(messageAttachments, senderID){
-	text1 =  "latitude:"
+	 if(text1 == undefined || text1 == "")
+    {
+        text1 =  "latitude:"
             +messageAttachments[0].payload.coordinates.lat
             +",longitude:"
             +messageAttachments[0].payload.coordinates.long;
-			    let replies =  [
+                let replies =  [
             {
                 "content_type":"text",
                 "title":"GetPrice",
                 "payload":text1
             }];
-	    contexts[0].parameters['lattitude'] =messageAttachments[0].payload.coordinates.lat;
+        contexts[0].parameters['lattitude'] =messageAttachments[0].payload.coordinates.lat;
         contexts[0].parameters['longitude'] =messageAttachments[0].payload.coordinates.long;
         sendQuickReply(senderID,text1,replies);
+        //sendTextMessage(senderID, "Attachment received. Thank you."+text+"fsdf");
+    }
     //for now just reply
     sendTextMessage(senderID, "Attachment received. Thank you.");
 }
