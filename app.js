@@ -413,9 +413,9 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     for (var i = 0; i < Results.length; i++)
                     {
                          address = Results[i].formatted_address;
-                        Country = address.split(',', 3)[2];
-                        stateF = address.split(',', 2)[1];
-                        State = stateF.split(' ', 2)[1];
+                        //Country = address.split(',', 3)[2];
+                        //stateF = address.split(',', 2)[1];
+                        //State = stateF.split(' ', 2)[1];
                         City = address.split(',', 1)[0];
                         var gemotry = Results[i].geometry;
                         var location = gemotry.location;
