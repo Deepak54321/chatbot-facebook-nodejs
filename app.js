@@ -341,7 +341,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             });
             break;
 			
-			case "pin-data":
+			/*case "pin-data":
             var request = require('request');
             var CityI='';
             var StateI='';
@@ -356,7 +356,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     let Results = result.results;
                     for (var i = 0; i < Results.length; i++)
                     {
-                         address = Results[i].formatted_address;
+                        address = Results[i].formatted_address;
                         CityI = address.split(',', 1)[0];
                     }
 					/*let address_components=Results[0].address_components;
@@ -371,7 +371,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 							CountryI=address_components[i].long_name;
 						}
 					}*/
-					var message=CityI;
+				/*	var message=CityI;
 					sendTextMessage(sender,message);
 				}
 				else
@@ -380,16 +380,13 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 					console(log.error());
 				}
 			});
-	
-
-
             break;
-			
+			*/
         case "dealer-info":
             // let dealer_pin= contexts[0].parameters['pincode'];
-            let dealer_pin=(isDefined(contexts[0].parameters['pincode'])&&
-                contexts[0].parameters['pincode']!='')? contexts[0].parameters['pincode']:'';
-            //var pincode=110005;
+            /*let dealer_pin=(isDefined(contexts[0].parameters['pincode'])&&
+                contexts[0].parameters['pincode']!='')? contexts[0].parameters['pincode']:'';*/
+            var pincode=110005;
 
             var StateId='';
             var CityId='';
@@ -408,7 +405,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             var request = require('request');
             //1
             request({
-                url:'https://maps.googleapis.com/maps/api/geocode/json?address='+dealer_pin+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
+                url:'https://maps.googleapis.com/maps/api/geocode/json?address='+pincode+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
             },function (error,response,body) {
                 if (!error && response.statusCode == 200) {
                     let result = JSON.parse(body);
@@ -425,9 +422,21 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         lat = location.lat;
                         lng = location.lng;
                     }
-
+                    var address_components=Results[0].address_components;
+					for(var i=0; i<address_components.length; i++)
+					{
+						if(i==address_components.length-2)
+						{
+							State=address_components[i].long_name;
+						}
+						else if(i==address_components.length-1)
+						{
+							Country=address_components[i].long_name;
+						}
+					}
                         //console.log(city);
                             let view = State + City + Country + 'Hi now you can get your dealers' + lat + lng;
+							sendTextMessage(sender,view);
                         //2
                         request({
                             url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/state'
