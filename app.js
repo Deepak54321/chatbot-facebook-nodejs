@@ -428,11 +428,11 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 						{
 						if(j==len-2)
 						{
-							State=address_components[i].long_name;
+							State=address_components[j].long_name;
 						}
 						else if(j==len-1)
 						{
-							Country=address_components[i].long_name;
+							Country=address_components[j].long_name;
 						}	
 						}
                     }
