@@ -254,6 +254,13 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             break;
         case "user-data":
             if(isDefined(contexts[0]) && contexts[0].name=='welcomeyamaha' && contexts[0].parameters) {
+                let rply =  [
+                    {
+                        "content_type":"text",
+                        "title":"Restart",
+                        "payload":"Restart"
+                    }
+                ];
                 let phone_number = (isDefined(contexts[0].parameters['ProductPhoneNumber']) &&
                     contexts[0].parameters['ProductPhoneNumber'] != '') ? contexts[0].parameters['ProductPhoneNumber'] : '';
                 let email = (isDefined(contexts[0].parameters['ProductEmail']) &&
@@ -265,17 +272,26 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 let lattitude=(isDefined(contexts[0].parameters['lattitude']) &&
                     contexts[0].parameters['longitude'] != '') ? contexts[0].parameters['longitude'] : '';
                 let longitude=(isDefined(contexts[0].parameters['longitude']) &&
-                        contexts[0].parameters['longitude'] != '') ? contexts[0].parameters['longitude'] : '';
+                    contexts[0].parameters['longitude'] != '') ? contexts[0].parameters['longitude'] : '';
                 if (phone_number != '' && email != '') {
                     let emailContent =  'Phone Number:=' + phone_number + 'email:=' + email + 'customer' +
                         'Customer Interest' + product_customer_interest + 'Product_Feedback '+ Product_Enquiry_Feedback +'lattitude'+lattitude+'';
-                    sendTextMessage(sender, emailContent);
+                   // sendTextMessage(sender, emailContent);
+
+                    sendQuickReply(sender,emailContent,rply);
                     //responseText=emailContent;
                 }
-                sendTextMessage(sender, responseText);
+                sendQuickReply(sender,responseText,rply);
             }
-                break;
-				 case "testuser-data":
+            break;
+			 case "testuser-data":
+			 let testrply =  [
+                    {
+                        "content_type":"text",
+                        "title":"Restart",
+                        "payload":"Restart"
+                    }
+                ];
             if(isDefined(contexts[0]) && contexts[0].name=='welcomeyamaha' && contexts[0].parameters) {
                 let phone_number = (isDefined(contexts[0].parameters['TNumber']) &&
                     contexts[0].parameters['TNumber'] != '') ? contexts[0].parameters['TNumber'] : '';
@@ -290,8 +306,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 
                 if (phone_number != '' && email != '') {
                     let emailContent =  'Phone Number:=' + phone_number + 'email:=' + email + 'customer' +
-                        'Customer Interest' + testdrive_customer_interest + 'Product_Feedback '+ testride_Feedback +'Pincode'+pincode+'';
-                    sendTextMessage(sender, emailContent);
+                        'Customer Interest' + testdrive_customer_interest + 'TestRide Feedback'+ testride_Feedback +'Pincode'+pincode+'';
+                    sendQuickReply(sender,emailContent,testrply);
                     //responseText=emailContent;
                 }
                 sendTextMessage(sender, responseText);
@@ -306,9 +322,16 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     let result = JSON.parse(body);
                     let responseCode=result.responseData;
                     let productPrice=responseCode.product_price;
-                    let price=productPrice[0].price;
+                    let price=productPrice[0].price +'Rs';
                     {
-                        sendTextMessage(sender, price);
+                        let reply =  [
+                            {
+                                "content_type":"text",
+                                "title":"Feedback",
+                                "payload":"Feedback"
+                            }
+                        ];
+                        sendQuickReply(sender,price,reply);
                         //greetUserText(sender.id);
                     }
                 }
@@ -317,11 +340,65 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                 }
             });
             break;
+			
+			case "pin-data":
+            var request = require('request');
+			 var StateId='';
+            var CityId='';
+            var City='';
+            var State='';
+            var Country='';
+            var lat='';
+            var lng='';
+            var State_Name='';
+            var City_Name='';
+            var address='';
+            var stateF='';
+            var dealerId='';
+			var dealer_pin=226001;
+            request({
+                url:'https://maps.googleapis.com/maps/api/geocode/json?address='+dealer_pin+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
+            },function (error,response,body) {
+                if (!error && response.statusCode == 200) {
+                    let result = JSON.parse(body);
+                    let Results = result.results;
+                    for (var i = 0; i < Results.length; i++)
+                    {
+                         address = Results[i].formatted_address;
+                        City = address.split(',', 1)[0];
+                    }
+					let address_components=Results[0].address_components;
+					for(var i=0; i<address_components.length; i++)
+					{
+						if(i==address_components.length-2)
+						{
+							State=address_components[i].long_name;
+						}
+						else if(i==address_components.length-1)
+						{
+							Country=address_components[i].long_name;
+						}
+					}
+					var message=City+State+Country;
+					sendTextMessage(sender,message);
+				}
+				else
+				{
+					sendTextMessage(sender,"Invalid Pincode");
+					console(log.error());
+				}
+			});
+	
+
+
+            break;
+			
         case "dealer-info":
-           // let dealer_pin= contexts[0].parameters['pincode'];
+            // let dealer_pin= contexts[0].parameters['pincode'];
             let dealer_pin=(isDefined(contexts[0].parameters['pincode'])&&
                 contexts[0].parameters['pincode']!='')? contexts[0].parameters['pincode']:'';
             //var pincode=110005;
+
             var StateId='';
             var CityId='';
             var City='';
@@ -331,6 +408,10 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             var lng='';
             var State_Name='';
             var City_Name='';
+            var address='';
+            var stateF='';
+            var dealerId='';
+
 
             var request = require('request');
             //1
@@ -339,37 +420,35 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             },function (error,response,body) {
                 if (!error && response.statusCode == 200) {
                     let result = JSON.parse(body);
-                    let Results=result.results;
-                    for(var i=0;i<Results.length;i++) {
-                        var address = Results[i].formatted_address;
-                        Country=address.split(',',3)[2];
-                        var stateF = address.split(',',2)[1];
-                        State=stateF.split(' ',2)[1];
-                        City=address.split(',',1)[0];
-                        var gemotry=Results[i].geometry;
-                        var location=gemotry.location;
-                        lat=location.lat;
-                        lng=location.lng;
+                    let Results = result.results;
+                    for (var i = 0; i < Results.length; i++)
+                    {
+                         address = Results[i].formatted_address;
+                        Country = address.split(',', 3)[2];
+                        stateF = address.split(',', 2)[1];
+                        State = stateF.split(' ', 2)[1];
+                        City = address.split(',', 1)[0];
+                        var gemotry = Results[i].geometry;
+                        var location = gemotry.location;
+                        lat = location.lat;
+                        lng = location.lng;
+                    }
 
                         //console.log(city);
-                        let view=State+City+Country+'Hi now you can get your dealers'+lat+lng;
+                            let view = State + City + Country + 'Hi now you can get your dealers' + lat + lng;
                         //2
-                       request({
-                            url:'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/state'
-                        },function (error,response,body) {
+                        request({
+                            url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/state'
+                        }, function (error, response, body) {
                             if (!error && response.statusCode == 200) {
                                 var res = JSON.parse(body);
-                                var responseData=res.responseData;
-                                var states=responseData.states;
-                                //var message=states[0].state_name;
-                                //var states=responseData.states;
-                                //sendTextMessage(sender,message);
-                               for(var i=0; i<states.length;i++)
-                                {
-                                  if(states[i].state_name===State)
-                                    {
-                                        StateId=states[i].profile_id;
-                                        State_Name=states[i].state_name;
+                                var responseData = res.responseData;
+                                var states = responseData.states;
+
+                                for (var i = 0; i < states.length; i++) {
+                                    if (states[i].state_name === State) {
+                                        StateId = states[i].profile_id;
+                                        State_Name = states[i].state_name;
 
                                     }
 
@@ -377,59 +456,119 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                                 //sendTextMessage(sender,StateId);
                                 //3
                                 request({
-                                    url:'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/city?profile_id='+StateId
-                                },function (error,response,body)
-                                {
+                                    url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/city?profile_id=' + StateId
+                                }, function (error, response, body) {
                                     if (!error && response.statusCode == 200) {
                                         var result = JSON.parse(body);
                                         var responsData = result.responseData;
                                         var citites = responsData.cities;
-                                       for (var i = 0; i < citites.length; i++) {
+                                        for (var i = 0; i < citites.length; i++) {
 
                                             if (citites[i].city_name == City) {
                                                 CityId = citites[i].city_profile_id;
                                             }
                                         }
                                         //var message=StateId+CityId;
-                                       //sendTextMessage(sender,message);
+                                        //sendTextMessage(sender,message);
 
                                         request({
-                                            url:'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/search?type=sales&profile_id='+StateId+'&city_profile_id='+CityId
-                                        },function (error,response,body)
-                                        {
+                                            url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/search?type=sales&profile_id=' + StateId + '&city_profile_id=' + CityId
+                                        }, function (error, response, body) {
                                             if (!error && response.statusCode == 200) {
                                                 var result = JSON.parse(body);
                                                 var resData = result.responseData;
-                                                var dealers=resData.dealers;
-                                                var dealer_name=dealers[0].dealer_name;
-                                                var dealer_add=dealers[0].dealer_address;
-                                                var dealer_Mob=dealers[0].sales_manager_mobile;
-                                                var text1=dealer_name+dealer_add+dealer_Mob;
-                                               sendTextMessage(sender,text1);
+                                                var dealers = resData.dealers;
+                                                dealerId=dealers[0].dealer_name;
+                                                var dealer_name = dealers[0].dealer_name;
+                                                var dealer_add = dealers[0].dealer_address;
+                                                var dealer_Mob = dealers[0].sales_manager_mobile;
+                                                var text1 = dealer_name + dealer_add + dealer_Mob;
+                                                let rply = [
+                                                    {
+                                                        "content_type": "text",
+                                                        "title": "Feedback",
+                                                        "payload": "Feedback"
+                                                    }
+                                                ];
+                                                sendQuickReply(sender, text1, rply);
+                                                //sendTextMessage(sender,text1);
                                             }
                                             else {
+                                                let rply1 = [
+                                                    {
+                                                        "content_type": "text",
+                                                        "title": "Feedback",
+                                                        "payload": "Feedback"
+                                                    }
+                                                ];
+                                                var text2="No dealers found in your Area 1";
+                                                sendQuickReply(sender,text2, rply1);
                                                 console(log.error());
                                             }
                                         });
 
                                     }
                                     else {
+                                        let rply2 = [
+                                            {
+                                                "content_type": "text",
+                                                "title": "Feedback",
+                                                "payload": "Feedback"
+                                            }
+                                        ];
+                                        var text3="No dealers found in your Area 2";
+                                        sendQuickReply(sender,text3, rply2);
                                         console(log.error());
                                     }
                                 });
                             }
                             else {
+                                let rply3 = [
+                                    {
+                                        "content_type": "text",
+                                        "title": "Feedback",
+                                        "payload": "Feedback"
+                                    }
+                                ];
+                                var text4="No dealers found in your Area 3";
+                                sendQuickReply(sender,text4, rply3);
                                 console(log.error());
                             }
                         });
 
-                    }
                 }
                 else {
-                    sendTextMessage(sender,"you have entered wrong pin codes");
+                    let rply4 = [
+                        {
+                            "content_type": "text",
+                            "title": "Feedback",
+                            "payload": "Feedback"
+                        }
+                    ];
+                    var text5="No dealers found in your Area 4";
+                    sendQuickReply(sender,text2, rply4);
                     console(log.error());
+
                 }
+
             });
+
+            if(StateId=='')
+            {
+                let rply = [
+                    {
+                        "content_type": "text",
+                        "title": "Feedback",
+                        "payload": "Feedback"
+                    }
+                ];
+                var text2 = "No dealers found in your Area Please check your pin code"+dealerId;
+                sendQuickReply(sender, text2, rply);
+
+            }
+            else {
+                sendTextMessage(sender,responseText);
+            }
             break;
         case "user":
             sendTextMessage(sender,"Your Id"+sender.id+"");
