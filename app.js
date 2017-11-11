@@ -400,7 +400,7 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             var address='';
             var stateF='';
             var dealerId='';
-
+            var address_components='';
 
             var request = require('request');
             //1
@@ -413,6 +413,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                     for (var i = 0; i < Results.length; i++)
                     {
                          address = Results[i].formatted_address;
+						 address_components=Results[i].address_components;
+						 
                         //Country = address.split(',', 3)[2];
                         //stateF = address.split(',', 2)[1];
                         //State = stateF.split(' ', 2)[1];
@@ -421,19 +423,19 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         var location = gemotry.location;
                         lat = location.lat;
                         lng = location.lng;
-                    }
-                    var address_components=Results[0].address_components;
-					for(var i=0; i<address_components.length; i++)
-					{
-						if(i==address_components.length-2)
+						var len=address_components.length;
+						for(var j=0; j<address_components.length;j++)
+						{
+						if(j==len-2)
 						{
 							State=address_components[i].long_name;
 						}
-						else if(i==address_components.length-1)
+						else if(j==len-1)
 						{
 							Country=address_components[i].long_name;
+						}	
 						}
-					}
+                    }
                         //console.log(city);
                             let view = State + City + Country + 'Hi now you can get your dealers' + lat + lng;
 							sendTextMessage(sender,view);
@@ -563,9 +565,9 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                         "payload": "Feedback"
                     }
                 ];
-                var text2 = "No dealers found in your Area Please check your pin code"+dealerId;
-                sendQuickReply(sender, text2, rply);
-
+                //var text2 = "No dealers found in your Area Please check your pin code"+dealerId;
+                //sendQuickReply(sender, text2, rply);
+                  sendTextMessage(sender,City+State+Country);
             }
             else {
                 sendTextMessage(sender,responseText);
