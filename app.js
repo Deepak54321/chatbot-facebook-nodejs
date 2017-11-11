@@ -404,77 +404,65 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 
             var request = require('request');
             //1
-            request({
-                url:'https://maps.googleapis.com/maps/api/geocode/json?address='+pincode+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
-            },function (error,response,body) {
-                if (!error && response.statusCode == 200) {
-                    let result = JSON.parse(body);
-                    let Results = result.results;
-                    for (var i = 0; i < Results.length; i++)
-                    {
-                         address = Results[i].formatted_address;
-						 address_components=Results[i].address_components;
-						 
-                        //Country = address.split(',', 3)[2];
-                        //stateF = address.split(',', 2)[1];
-                        //State = stateF.split(' ', 2)[1];
-                        City = address.split(',', 1)[0];
-                        var gemotry = Results[i].geometry;
-                        var location = gemotry.location;
-                        lat = location.lat;
-                        lng = location.lng;
-						var len=address_components.length;
-						for(var j=0; j<address_components.length;j++)
-						{
-						if(j==len-2)
-						{
-							State=address_components[j].long_name;
-						}
-						else if(j==len-1)
-						{
-							Country=address_components[j].long_name;
-						}	
-						}
-                    }
-                        //console.log(city);
-                            let view = State + City + Country + 'Hi now you can get your dealers' + lat + lng;
-							sendTextMessage(sender,view);
-                        //2
-                        request({
-                            url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/state'
-                        }, function (error, response, body) {
-                            if (!error && response.statusCode == 200) {
-                                var res = JSON.parse(body);
-                                var responseData = res.responseData;
-                                var states = responseData.states;
+http.createServer(function (req, res) {
+    //1
+    request({
+        url:'https://maps.googleapis.com/maps/api/geocode/json?address='+pincode+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
+    },function (error,response,body) {
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body);
+            var Results = result.results;
+            address_components = Results[0].address_components;
+            var len = address_components.length;
+            for (var j = 0; j < address_components.length; j++) {
+                if(j==len-3)
+                {
+                    City=address_components[j].long_name;
+                }
+                else if (j == len - 2) {
+                    State = address_components[j].long_name;
+                }
+                else if (j == len - 1) {
+                    Country = address_components[j].long_name;
+                }
+            }
+        }
+    });
+    //2
+    request({
+        url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/state'
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var res = JSON.parse(body);
+            var responseData = res.responseData;
+            var states = responseData.states;
 
-                                for (var i = 0; i < states.length; i++) {
-                                    if (states[i].state_name === State) {
-                                        StateId = states[i].profile_id;
-                                        State_Name = states[i].state_name;
+            for (var i = 0; i < states.length; i++) {
+                if (states[i].state_name === State) {
+                    StateId = states[i].profile_id;
+                    //State_Name = states[i].state_name;
 
-                                    }
+                }
 
-                                }
-                                //sendTextMessage(sender,StateId);
-                                //3
-                                request({
-                                    url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/city?profile_id=' + StateId
-                                }, function (error, response, body) {
-                                    if (!error && response.statusCode == 200) {
-                                        var result = JSON.parse(body);
-                                        var responsData = result.responseData;
-                                        var citites = responsData.cities;
-                                        for (var i = 0; i < citites.length; i++) {
+            }
+        }
+    });
+    request({
+        url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/city?profile_id=' + StateId
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var result = JSON.parse(body);
+            var responsData = result.responseData;
+            var citites = responsData.cities;
+            for (var i = 0; i < citites.length; i++) {
 
-                                            if (citites[i].city_name == City) {
-                                                CityId = citites[i].city_profile_id;
-                                            }
-                                        }
-                                        //var message=StateId+CityId;
-                                        //sendTextMessage(sender,message);
-
-                                        request({
+                if (citites[i].city_name == City) {
+                    CityId = citites[i].city_profile_id;
+                }
+            }
+        }
+    });
+                                      request({
                                             url: 'http://www.yamaha-motor-india.com/iym-web-api//51DCDFC2A2BC9/network/search?type=sales&profile_id=' + StateId + '&city_profile_id=' + CityId
                                         }, function (error, response, body) {
                                             if (!error && response.statusCode == 200) {
@@ -486,6 +474,8 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                                                 var dealer_add = dealers[0].dealer_address;
                                                 var dealer_Mob = dealers[0].sales_manager_mobile;
                                                 var text1 = dealer_name + dealer_add + dealer_Mob;
+												if(text!='')
+												{
                                                 let rply = [
                                                     {
                                                         "content_type": "text",
@@ -494,85 +484,25 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
                                                     }
                                                 ];
                                                 sendQuickReply(sender, text1, rply);
-                                                //sendTextMessage(sender,text1);
-                                            }
-                                            else {
-                                                let rply1 = [
+												}
+												else
+												{
+													text1='No dealers found in your area';
+													let rply = [
                                                     {
                                                         "content_type": "text",
                                                         "title": "Feedback",
                                                         "payload": "Feedback"
                                                     }
                                                 ];
-                                                var text2="No dealers found in your Area 1";
-                                                sendQuickReply(sender,text2, rply1);
+                                                sendQuickReply(sender, text1, rply);
+												}
+                                            }
+                                            else {   
                                                 console(log.error());
                                             }
                                         });
-
-                                    }
-                                    else {
-                                        let rply2 = [
-                                            {
-                                                "content_type": "text",
-                                                "title": "Feedback",
-                                                "payload": "Feedback"
-                                            }
-                                        ];
-                                        var text3="No dealers found in your Area 2";
-                                        sendQuickReply(sender,text3, rply2);
-                                        console(log.error());
-                                    }
-                                });
-                            }
-                            else {
-                                let rply3 = [
-                                    {
-                                        "content_type": "text",
-                                        "title": "Feedback",
-                                        "payload": "Feedback"
-                                    }
-                                ];
-                                var text4="No dealers found in your Area 3";
-                                sendQuickReply(sender,text4, rply3);
-                                console(log.error());
-                            }
-                        });
-
-                }
-                else {
-                    let rply4 = [
-                        {
-                            "content_type": "text",
-                            "title": "Feedback",
-                            "payload": "Feedback"
-                        }
-                    ];
-                    var text5="No dealers found in your Area 4";
-                    sendQuickReply(sender,text2, rply4);
-                    console(log.error());
-
-                }
-
-            });
-
-            if(StateId=='')
-            {
-                let rply = [
-                    {
-                        "content_type": "text",
-                        "title": "Feedback",
-                        "payload": "Feedback"
-                    }
-                ];
-                //var text2 = "No dealers found in your Area Please check your pin code"+dealerId;
-                //sendQuickReply(sender, text2, rply);
-                  sendTextMessage(sender,City+State+Country);
-            }
-            else {
-                sendTextMessage(sender,responseText);
-            }
-            break;
+                           break;
         case "user":
             sendTextMessage(sender,"Your Id"+sender.id+"");
             break;
