@@ -343,43 +343,35 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
 			
 			case "pin-data":
             var request = require('request');
-			 var StateId='';
-            var CityId='';
-            var City='';
-            var State='';
-            var Country='';
-            var lat='';
-            var lng='';
-            var State_Name='';
-            var City_Name='';
-            var address='';
-            var stateF='';
-            var dealerId='';
+            var CityI='';
+            var StateI='';
+            var CountryI='';
 			var dealer_pin=226001;
             request({
                 url:'https://maps.googleapis.com/maps/api/geocode/json?address='+dealer_pin+'&key=AIzaSyD_YqB4d_-xKcmNP9jJCiPkJYDS8J3f6pI'
-            },function (error,response,body) {
+            },
+			function (error,response,body) {
                 if (!error && response.statusCode == 200) {
                     let result = JSON.parse(body);
                     let Results = result.results;
                     for (var i = 0; i < Results.length; i++)
                     {
                          address = Results[i].formatted_address;
-                        City = address.split(',', 1)[0];
+                        CityI = address.split(',', 1)[0];
                     }
-					let address_components=Results[0].address_components;
+					/*let address_components=Results[0].address_components;
 					for(var i=0; i<address_components.length; i++)
 					{
 						if(i==address_components.length-2)
 						{
-							State=address_components[i].long_name;
+							StateI=address_components[i].long_name;
 						}
 						else if(i==address_components.length-1)
 						{
-							Country=address_components[i].long_name;
+							CountryI=address_components[i].long_name;
 						}
-					}
-					var message=City+State+Country;
+					}*/
+					var message=CityI;
 					sendTextMessage(sender,message);
 				}
 				else
